@@ -63,6 +63,12 @@ body {
     min-height: 100%;
     line-height: 1.5;
 }
+p {
+    margin-block: 0;
+}
+p:not([class]):not(:last-child) {
+    margin-bottom: 24px;
+}
 a, button, input, textarea, svg * {
     transition-duration: var(--transition-duration);
 }
@@ -130,6 +136,35 @@ h1, h2, h3, h4, h5, h6 {
     font-weight: 700;
     text-transform: uppercase;
 }
+.title-medium {
+    font-size: clamp(20px, 2.08vw, 40px);
+    line-height: 1.3;
+    color:var(--color-light);
+}
+.backdrop-title{
+    position: relative;
+    z-index: 2;
+}
+.backdrop-title::before{
+    content: '';
+    display: block;
+    position:absolute;
+    right: calc(100% + 8px);
+    width: 26px;
+    aspect-ratio: 1;
+    background: url(./icons/plus.svg) center/contain no-repeat;
+}
+.backdrop-title::after{
+    content: attr(data-title);
+    position: absolute;
+    z-index: -1;
+    top: -0.45em;
+    left: -0.6em;
+    font-size: 2.8em;
+    font-family: var(--font-family-accent);
+    color: transparent;
+    -webkit-text-stroke: 1px var(--color-dark-grey);
+}
 .button {
     display: inline-flex;
     align-items: center;
@@ -140,12 +175,35 @@ h1, h2, h3, h4, h5, h6 {
     line-height: 2;
     letter-spacing: 1.2px;
     text-transform: uppercase;
+    text-decoration: none;
     white-space: nowrap;
     background-color: var(--color-light);
     border: none;
     border-radius: var(--border-radius);
 }
 .button:hover {
+    background-color: var(--color-light-grey);
+}
+.button.transparent {
+    position: relative;
+    height: var(--input-height);
+    padding-left: 31px;
+    padding-right: 80px;
+    background-color: transparent;
+    border: var(--border);
+}
+.button.transparent::after {
+    content: '';
+    position: absolute;
+    right: 0;
+    height: 100%;
+    aspect-ratio: 1;
+    background: url(./icons/button-arrow.svg) center/70% no-repeat;
+    border: var(--border);
+    border-radius: 50%;
+}
+.button.transparent:hover{
+    color: var(--color-dark);
     background-color: var(--color-light-grey);
 }
 .header {
@@ -206,7 +264,7 @@ h1, h2, h3, h4, h5, h6 {
   position: relative;
 }
 .header-burger-button:hover {
-  color: var(--color-light-gray);
+  color: var(--color-light-grey);
   border-color: currentColor;
 }
 
@@ -274,9 +332,46 @@ h1, h2, h3, h4, h5, h6 {
     background-color: var(--color-light);
 }
 .banner-pagination-button:not(.is-current):hover::after{
-    color: var(--color-light-gray)
+    border-color: var(--color-light-grey)
+}
+.motivation-item:nth-child(even){
+    background-color:var(--color-dark-alternate);
+}
+.motivation-item:nth-child(even) .motivation-card{
+    flex-direction: row-reverse;
+}
+.motivation-card{
+    display: flex;
+    justify-content: start;
+    align-items: center;
+    column-gap: clamp(30px, 10.42vw, 200px)
+}
+.motivation-card-image{
+    margin-block: -60px;
+}
+.motivation-card-body{
+    padding-left: 35px;
+}
+.motivation-card-description{
+    max-width: 400px;
+}
+.motivation-card-title:not(:last-child) {
+    margin-bottom: 14px;
+}
+.motivation-card-description:not(:last-child){
+    margin-bottom: 37px;
 }
 
+
+
+
+
+
+@media (max-width: 1919px) {
+    .motivation-card-image {
+        margin-block: -20px;
+    }
+}
 
 @media (max-width: 1024px) {
     .header {
@@ -297,6 +392,14 @@ h1, h2, h3, h4, h5, h6 {
     }
     .banner{
         row-gap: 20px;
+    }
+    .motivation-card {
+        padding-block: 50px;
+    }
+    .motivation-card-image{
+        max-width: 30%;
+        height: auto;
+        margin-block: 0;
     }
 }
 
@@ -320,6 +423,20 @@ h1, h2, h3, h4, h5, h6 {
     }
     .banner-info::before{
         margin-right: 10px;
+    }
+    .motivation-card, 
+    .motivation-item:nth-child(even) .motivation-card{
+        flex-direction: column-reverse;
+    }
+    .motivation-card {
+        row-gap: 30px;
+        padding-block: 30px;
+    }
+    .motivation-card-image{
+        max-width: 60%;
+    }
+    .motivation-card-description:not(:last-child){
+        margin-bottom: 20px;
     }
 }
 @media (max-width: 360px) {
